@@ -509,51 +509,6 @@
   .process-step h3{ font-size:17px; margin-bottom:10px; }
   .process-step p{ font-size:14px; color:var(--text-dim); }
 
-  /* ---------- TESTIMONIOS ---------- */
-  .review-box{
-    background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0) 30%), var(--surface);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:34px 32px;
-    margin-bottom:40px;
-    max-width:640px;
-    box-shadow:0 24px 50px -32px rgba(0,0,0,0.6);
-  }
-  .review-box h3{ font-size:19px; margin-bottom:6px; font-weight:600; letter-spacing:-0.01em; }
-  .review-box > p{ color:var(--text-dim); font-size:14.5px; margin-bottom:22px; }
-  .review-stars{
-    display:flex;
-    gap:6px;
-    margin-bottom:24px;
-  }
-  .review-stars .star{
-    background:none;
-    border:none;
-    cursor:pointer;
-    font-size:30px;
-    line-height:1;
-    color:var(--border-bright);
-    transition:color .15s ease, transform .15s ease;
-    padding:0;
-  }
-  .review-stars .star:hover{ transform:scale(1.12); }
-  .review-stars .star.active{ color:var(--gold); }
-  .review-form{ display:flex; flex-direction:column; gap:16px; }
-  .testi-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:20px;
-  }
-  .testi-card{
-    background:var(--surface);
-    border:1px dashed var(--border-bright);
-    border-radius:16px;
-    padding:30px;
-    color:var(--text-faint);
-  }
-  .testi-quote{ font-size:14.5px; margin-bottom:18px; line-height:1.65; }
-  .testi-name{ font-family:var(--mono); font-size:12.5px; color:var(--text-dim); }
-
   /* ---------- FAQ ---------- */
   .faq-list{ max-width:760px; }
   .faq-item{
@@ -757,7 +712,7 @@
   }
   .btn-primary:hover::before{ left:130%; }
 
-  .service-card, .price-card, .project-card, .testi-card, .review-box, .contact-alt{
+  .service-card, .price-card, .contact-alt{
     transition:transform .3s cubic-bezier(.16,.8,.3,1), border-color .3s ease, background .3s ease, box-shadow .3s ease;
   }
   .service-card:hover{ box-shadow:0 20px 40px -24px rgba(0,0,0,0.55); }
@@ -786,14 +741,6 @@
 
   .cta-final::before{ animation:glowPulse 9s ease-in-out infinite; }
 
-  .star{ transition:color .15s ease, transform .18s cubic-bezier(.34,1.56,.64,1); }
-  .star.active{ animation:starPop .3s ease; }
-  @keyframes starPop{
-    0%{ transform:scale(1); }
-    40%{ transform:scale(1.35); }
-    100%{ transform:scale(1); }
-  }
-
   @media (prefers-reduced-motion: reduce){
     .mock, .hero-glow, .price-pill .dot, .cta-final::before, .eyebrow{ animation:none; }
     .reveal, .reveal-stagger > *{ opacity:1; transform:none; transition:none; }
@@ -806,7 +753,7 @@
     .burger{ display:flex; }
     .hero-inner{ grid-template-columns:1fr; }
     .mock{ order:-1; transform:none; animation:none; }
-    .services-grid, .pricing-grid, .testi-grid{ grid-template-columns:repeat(2,1fr); }
+    .services-grid, .pricing-grid{ grid-template-columns:repeat(2,1fr); }
     .process-grid{ grid-template-columns:repeat(2,1fr); gap:30px 24px; }
     .process-step{ border-left:none; padding-left:0; }
     .about-grid{ grid-template-columns:1fr; }
@@ -819,7 +766,7 @@
     .wrap{ padding:0 20px; }
     .hero{ padding:150px 0 90px; }
     section{ padding:80px 0; }
-    .services-grid, .pricing-grid, .testi-grid, .process-grid{ grid-template-columns:1fr; }
+    .services-grid, .pricing-grid, .process-grid{ grid-template-columns:1fr; }
     .form-row{ grid-template-columns:1fr; }
     .hero-actions .btn{ width:100%; }
     .footer-bottom{ flex-direction:column; align-items:flex-start; }
@@ -1079,61 +1026,6 @@
   </div>
 </section>
 
-<!-- TESTIMONIOS -->
-<section class="section-alt">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">Testimonios</div>
-      <h2>Clientes satisfechos</h2>
-      <p>Esta sección se irá completando con opiniones reales a medida que lleguen.</p>
-    </div>
-
-    <div class="review-box reveal">
-      <h3>Deja tu opinión</h3>
-      <p>Valora tu experiencia y cuéntanos brevemente qué tal ha ido.</p>
-      <div class="review-stars" id="reviewStars" role="radiogroup" aria-label="Valoración de 1 a 5 estrellas">
-        <button type="button" class="star" data-value="1" aria-label="1 estrella">★</button>
-        <button type="button" class="star" data-value="2" aria-label="2 estrellas">★</button>
-        <button type="button" class="star" data-value="3" aria-label="3 estrellas">★</button>
-        <button type="button" class="star" data-value="4" aria-label="4 estrellas">★</button>
-        <button type="button" class="star" data-value="5" aria-label="5 estrellas">★</button>
-      </div>
-      <form id="reviewForm" class="review-form">
-        <div class="form-row">
-          <div>
-            <label for="reviewNombre">Tu nombre</label>
-            <input id="reviewNombre" type="text" required>
-          </div>
-          <div>
-            <label for="reviewNegocio">Tu negocio (opcional)</label>
-            <input id="reviewNegocio" type="text">
-          </div>
-        </div>
-        <div>
-          <label for="reviewComentario">Comentario</label>
-          <textarea id="reviewComentario" placeholder="Cuéntanos brevemente qué tal ha sido tu experiencia..." required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Enviar opinión</button>
-      </form>
-    </div>
-
-    <div class="testi-grid reveal-stagger" id="testiGrid">
-      <div class="testi-card">
-        <p class="testi-quote">[TESTIMONIO]</p>
-        <p class="testi-name">[NOMBRE] — [NEGOCIO]</p>
-      </div>
-      <div class="testi-card">
-        <p class="testi-quote">[TESTIMONIO]</p>
-        <p class="testi-name">[NOMBRE] — [NEGOCIO]</p>
-      </div>
-      <div class="testi-card">
-        <p class="testi-quote">[TESTIMONIO]</p>
-        <p class="testi-name">[NOMBRE] — [NEGOCIO]</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FAQ -->
 <section id="faq">
   <div class="wrap">
@@ -1340,44 +1232,6 @@
       document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
       if (!isOpen) item.classList.add('open');
     });
-  });
-
-  // review stars + form
-  let selectedRating = 0;
-  const starButtons = document.querySelectorAll('#reviewStars .star');
-  starButtons.forEach(star => {
-    star.addEventListener('click', () => {
-      selectedRating = parseInt(star.dataset.value, 10);
-      starButtons.forEach(s => s.classList.toggle('active', parseInt(s.dataset.value, 10) <= selectedRating));
-    });
-  });
-
-  document.getElementById('reviewForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (selectedRating === 0) {
-      alert('Por favor, selecciona una valoración de 1 a 5 estrellas.');
-      return;
-    }
-    const nombre = document.getElementById('reviewNombre').value.trim();
-    const negocio = document.getElementById('reviewNegocio').value.trim();
-    const comentario = document.getElementById('reviewComentario').value.trim();
-
-    const card = document.createElement('div');
-    card.className = 'testi-card';
-    card.style.borderStyle = 'solid';
-    card.style.color = 'var(--text)';
-    const starsLine = '★'.repeat(selectedRating) + '☆'.repeat(5 - selectedRating);
-    card.innerHTML = `
-      <p style="color:#d9c48a; letter-spacing:2px; margin-bottom:12px;">${starsLine}</p>
-      <p class="testi-quote" style="color:var(--text-dim);">${comentario}</p>
-      <p class="testi-name">${nombre}${negocio ? ' — ' + negocio : ''}</p>
-    `;
-    document.getElementById('testiGrid').prepend(card);
-
-    document.getElementById('reviewForm').reset();
-    selectedRating = 0;
-    starButtons.forEach(s => s.classList.remove('active'));
-    alert('¡Gracias por tu opinión!');
   });
 </script>
 
