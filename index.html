@@ -19,9 +19,9 @@
     --text: #f2f2f7;
     --text-dim: #9797ac;
     --text-faint: #5c5c72;
-    --accent: #6d6bf5;
-    --accent-2: #9b6bf5;
-    --accent-glow: rgba(109,107,245,0.35);
+    --accent: #4d6bff;
+    --accent-2: #3b9eff;
+    --accent-glow: rgba(77,107,255,0.35);
     --gold: #d9c48a;
     --mono: 'JetBrains Mono', monospace;
     --display: 'Space Grotesk', sans-serif;
@@ -346,8 +346,8 @@
   .section-head p{ color:var(--text-dim); font-size:16px; margin-top:14px; }
   .section-alt{
     background:
-      radial-gradient(ellipse 60% 50% at 15% 0%, rgba(109,107,245,0.06), transparent 60%),
-      radial-gradient(ellipse 50% 40% at 100% 100%, rgba(155,107,245,0.05), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 15% 0%, rgba(77,107,255,0.06), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 100% 100%, rgba(59,158,255,0.05), transparent 60%),
       var(--bg-elevated);
     border-top:1px solid var(--border);
     border-bottom:1px solid var(--border);
@@ -387,7 +387,7 @@
   .service-icon{
     width:44px; height:44px;
     border-radius:11px;
-    background:linear-gradient(135deg, rgba(109,107,245,0.2), rgba(155,107,245,0.1));
+    background:linear-gradient(135deg, rgba(77,107,255,0.2), rgba(59,158,255,0.1));
     border:1px solid var(--border-bright);
     box-shadow:0 1px 0 rgba(255,255,255,0.06) inset;
     display:flex; align-items:center; justify-content:center;
@@ -426,7 +426,7 @@
     inset:0;
     z-index:-1;
     border-radius:18px;
-    background:linear-gradient(180deg, rgba(109,107,245,0.1), transparent 45%);
+    background:linear-gradient(180deg, rgba(77,107,255,0.1), transparent 45%);
     pointer-events:none;
   }
   .badge{
@@ -720,7 +720,7 @@
   .price-card.featured:hover{ box-shadow:0 30px 70px -30px var(--accent-glow); }
 
   .service-icon{ transition:transform .35s cubic-bezier(.34,1.56,.64,1), background .3s ease; }
-  .service-card:hover .service-icon{ transform:scale(1.1) rotate(-4deg); background:linear-gradient(135deg, rgba(109,107,245,0.3), rgba(155,107,245,0.18)); }
+  .service-card:hover .service-icon{ transform:scale(1.1) rotate(-4deg); background:linear-gradient(135deg, rgba(77,107,255,0.3), rgba(59,158,255,0.18)); }
 
   .process-num{ transition:transform .3s ease, color .3s ease; }
   .process-step:hover .process-num{ transform:translateX(4px); }
