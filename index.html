@@ -2,6 +2,10 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+  window.scrollTo(0, 0);
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>David García Martín — Diseño y desarrollo web para negocios</title>
 <meta name="description" content="Diseño y desarrollo páginas web modernas, rápidas y adaptadas a cada negocio. Webs profesionales desde 290€, optimizadas para móvil y buscadores.">
@@ -1420,6 +1424,7 @@
   } else {
     window.addEventListener('load', hidePreloader);
   }
+  window.addEventListener('load', () => window.scrollTo(0, 0));
 
   // mobile menu
   const burger = document.getElementById('burger');
