@@ -89,13 +89,20 @@
       "name": "Mantenimiento mensual",
       "price": "20",
       "priceCurrency": "EUR",
-      "description": "Hosting y mantenimiento de la web con hasta 2 cambios al mes incluidos. El cliente solo paga su dominio.",
+      "description": "Hosting y mantenimiento de la web con hasta 3 cambios al mes incluidos. Cambios adicionales a 5€ cada uno. El cliente solo paga su dominio.",
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
         "price": "20",
         "priceCurrency": "EUR",
         "unitText": "MES"
       }
+    },
+    {
+      "@type": "Offer",
+      "name": "Cambio adicional",
+      "price": "5",
+      "priceCurrency": "EUR",
+      "description": "Cada cambio adicional que supere los 3 cambios mensuales incluidos en el mantenimiento."
     }
   ]
 }
@@ -650,6 +657,7 @@
 
   /* ---------- MANTENIMIENTO ---------- */
   .maint-banner{
+    position:relative;
     margin-top:26px;
     display:flex;
     align-items:center;
@@ -658,8 +666,19 @@
     flex-wrap:wrap;
     padding:30px 34px;
     border-radius:18px;
-    border:1px solid var(--border);
-    background:linear-gradient(120deg, rgba(77,107,255,0.08), rgba(59,158,255,0.04) 60%), var(--surface);
+    border:1px solid transparent;
+    background:linear-gradient(var(--surface), var(--surface)) padding-box,
+               linear-gradient(160deg, var(--accent), var(--accent-2), var(--gold)) border-box;
+    box-shadow:0 30px 70px -30px var(--accent-glow);
+  }
+  .maint-banner::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-1;
+    border-radius:18px;
+    background:linear-gradient(120deg, rgba(77,107,255,0.1), transparent 55%);
+    pointer-events:none;
   }
   .maint-text h3{ font-size:18px; margin-bottom:6px; }
   .maint-text p{ color:var(--text-dim); font-size:14px; max-width:520px; }
@@ -1236,9 +1255,10 @@
     </div>
 
     <div class="maint-banner reveal">
+      <span class="badge">Altamente recomendado</span>
       <div class="maint-text">
         <h3>Mantenimiento mensual</h3>
-        <p>Tu web siempre al día: hosting, revisiones y hasta <strong>2 cambios al mes</strong> incluidos (textos, precios, fotos, pequeños ajustes). Sin sorpresas ni facturas por cada cambio. Tú solo te encargas de renovar tu dominio.</p>
+        <p>Tu web siempre al día: hosting, revisiones y hasta <strong>3 cambios al mes</strong> incluidos (textos, precios, fotos, pequeños ajustes). A partir del 3.º, cada cambio adicional cuesta <strong>5 €</strong>. Tú solo te encargas de renovar tu dominio.</p>
       </div>
       <div class="maint-cta">
         <div class="maint-price"><span class="num">20 €</span><span class="per">/mes</span></div>
@@ -1327,7 +1347,7 @@
         <button class="faq-q">¿El dominio y alojamiento están incluidos?
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
         </button>
-        <div class="faq-a">El dominio corre por tu cuenta y queda a tu nombre. El alojamiento y el mantenimiento de la web están incluidos en la cuota mensual de 20 €, que también incluye hasta 2 cambios al mes.</div>
+        <div class="faq-a">El dominio corre por tu cuenta y queda a tu nombre. El alojamiento y el mantenimiento de la web están incluidos en la cuota mensual de 20 €, que también incluye hasta 3 cambios al mes (cada cambio adicional cuesta 5 €).</div>
       </div>
 
       <div class="faq-item">
