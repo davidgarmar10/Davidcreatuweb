@@ -83,6 +83,19 @@
       "price": "650",
       "priceCurrency": "EUR",
       "description": "Web totalmente personalizada con desarrollo avanzado, SEO avanzado e integraciones a medida."
+    },
+    {
+      "@type": "Offer",
+      "name": "Mantenimiento mensual",
+      "price": "20",
+      "priceCurrency": "EUR",
+      "description": "Hosting y mantenimiento de la web con hasta 2 cambios al mes incluidos. El cliente solo paga su dominio.",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "20",
+        "priceCurrency": "EUR",
+        "unitText": "MES"
+      }
     }
   ]
 }
@@ -634,6 +647,34 @@
   .price-list li{ display:flex; gap:10px; font-size:14px; color:var(--text-dim); align-items:flex-start; }
   .price-list svg{ width:16px; height:16px; color:var(--accent-2); flex-shrink:0; margin-top:2px; }
   .price-terms{ font-family:var(--mono); font-size:12px; color:var(--text-faint); margin-bottom:16px; }
+
+  /* ---------- MANTENIMIENTO ---------- */
+  .maint-banner{
+    margin-top:26px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:28px;
+    flex-wrap:wrap;
+    padding:30px 34px;
+    border-radius:18px;
+    border:1px solid var(--border);
+    background:linear-gradient(120deg, rgba(77,107,255,0.08), rgba(59,158,255,0.04) 60%), var(--surface);
+  }
+  .maint-text h3{ font-size:18px; margin-bottom:6px; }
+  .maint-text p{ color:var(--text-dim); font-size:14px; max-width:520px; }
+  .maint-text p strong{ color:var(--text); }
+  .maint-price{
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+    flex-shrink:0;
+    font-family:var(--display);
+  }
+  .maint-price .num{ font-size:34px; font-weight:700; }
+  .maint-price .per{ font-size:14px; color:var(--text-faint); font-weight:500; }
+  .maint-cta{ display:flex; flex-direction:column; align-items:flex-start; gap:10px; flex-shrink:0; }
+  .maint-note{ font-family:var(--mono); font-size:11px; color:var(--text-faint); }
 
   /* ---------- SOBRE MI ---------- */
   .about-grid{
@@ -1193,6 +1234,19 @@
       </div>
 
     </div>
+
+    <div class="maint-banner reveal">
+      <div class="maint-text">
+        <h3>Mantenimiento mensual</h3>
+        <p>Tu web siempre al día: hosting, revisiones y hasta <strong>2 cambios al mes</strong> incluidos (textos, precios, fotos, pequeños ajustes). Sin sorpresas ni facturas por cada cambio. Tú solo te encargas de renovar tu dominio.</p>
+      </div>
+      <div class="maint-cta">
+        <div class="maint-price"><span class="num">20 €</span><span class="per">/mes</span></div>
+        <a href="https://wa.me/34608981380?text=Hola%20David%2C%20me%20interesa%20el%20mantenimiento%20mensual%20de%2020%E2%82%AC%2Fmes%20para%20mi%20web." class="btn btn-primary btn-block" target="_blank" rel="noopener">Quiero mantenimiento</a>
+        <span class="maint-note">Cancelable cuando quieras · dominio a tu nombre</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1256,17 +1310,10 @@
     <div class="faq-list reveal-stagger">
 
       <div class="faq-item">
-        <button class="faq-q">¿Cuánto cuesta una página web?
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="faq-a">Los proyectos comienzan desde 290 €, dependiendo de las necesidades del negocio.</div>
-      </div>
-
-      <div class="faq-item">
         <button class="faq-q">¿Cuánto tarda en hacerse?
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
         </button>
-        <div class="faq-a">El plazo depende del proyecto y de la rapidez con la que se proporcione el material necesario.</div>
+        <div class="faq-a">Aproximadamente 7 días, aunque puede variar en función de la dificultad de la web.</div>
       </div>
 
       <div class="faq-item">
@@ -1280,7 +1327,7 @@
         <button class="faq-q">¿El dominio y alojamiento están incluidos?
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
         </button>
-        <div class="faq-a">No. El dominio y el alojamiento se contratan aparte y quedan a nombre del cliente.</div>
+        <div class="faq-a">El dominio corre por tu cuenta y queda a tu nombre. El alojamiento y el mantenimiento de la web están incluidos en la cuota mensual de 20 €, que también incluye hasta 2 cambios al mes.</div>
       </div>
 
       <div class="faq-item">
@@ -1288,13 +1335,6 @@
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
         </button>
         <div class="faq-a">Sí. Todas las webs se diseñan para funcionar correctamente en móvil, tablet y ordenador.</div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q">¿Puedo pedir cambios posteriormente?
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-        <div class="faq-a">Sí. Los primeros 14 días después de la entrega, los cambios son gratuitos. Pasado ese plazo, cada modificación tiene un coste de 30 €.</div>
       </div>
 
     </div>
