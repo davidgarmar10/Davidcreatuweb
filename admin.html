@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moderar reseñas — David Crea Tu Web</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --bg: #08080d;
+    --surface: #141420;
+    --surface-hover: #191926;
+    --border: #26263a;
+    --border-bright: #35354f;
+    --text: #f2f2f7;
+    --text-dim: #9797ac;
+    --text-faint: #5c5c72;
+    --accent: #4d6bff;
+    --accent-2: #3b9eff;
+    --gold: #d9c48a;
+    --mono: 'JetBrains Mono', monospace;
+    --body: 'Inter', sans-serif;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    background:var(--bg); color:var(--text); font-family:var(--body);
+    min-height:100vh; display:flex; align-items:flex-start; justify-content:center;
+    padding:60px 20px;
+  }
+  .wrap{ width:100%; max-width:720px; }
+  h1{ font-size:24px; margin-bottom:6px; }
+  .sub{ color:var(--text-dim); font-size:14.5px; margin-bottom:32px; }
+
+  .box{
+    background:var(--surface); border:1px solid var(--border); border-radius:16px;
+    padding:28px; margin-bottom:20px;
+  }
+  label{ font-size:13px; color:var(--text-dim); margin-bottom:7px; display:block; }
+  input{
+    width:100%; background:var(--bg); border:1px solid var(--border-bright); color:var(--text);
+    padding:12px 14px; border-radius:9px; font-size:14.5px; margin-bottom:14px;
+  }
+  input:focus{ outline:none; border-color:var(--accent-2); }
+  button{
+    cursor:pointer; border:none; border-radius:9px; font-weight:600; font-size:14.5px;
+    padding:12px 18px; font-family:var(--body);
+  }
+  .btn-primary{ background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#fff; width:100%; }
+  .btn-approve{ background:#2a5c3f; color:#c9f2d8; }
+  .btn-reject{ background:#5c2a2a; color:#f2c9c9; }
+  .btn-logout{ background:transparent; border:1px solid var(--border-bright); color:var(--text-dim); }
+  button:disabled{ opacity:.5; cursor:default; }
+
+  .top-row{ display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+  .error{ color:#ff8f8f; font-size:13.5px; margin-bottom:14px; display:none; }
+  .error.show{ display:block; }
+
+  .review-item{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:22px; margin-bottom:14px;
+  }
+  .review-item .stars{ color:var(--gold); margin-bottom:8px; }
+  .review-item .texto{ font-size:14.5px; margin-bottom:10px; }
+  .review-item .meta{ color:var(--text-faint); font-size:12.5px; margin-bottom:14px; }
+  .review-item .actions{ display:flex; gap:10px; }
+  .empty{ color:var(--text-faint); font-size:14.5px; text-align:center; padding:30px 0; }
+
+  #adminPanel{ display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="loginBox" class="box">
+    <h1>Moderar reseñas</h1>
+    <p class="sub">Inicia sesión para aprobar o rechazar reseñas pendientes.</p>
+    <p class="error" id="loginError"></p>
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="username">
+    <label for="password">Contraseña</label>
+    <input id="password" type="password" autocomplete="current-password">
+    <button class="btn-primary" id="loginBtn">Entrar</button>
+  </div>
+
+  <div id="adminPanel">
+    <div class="top-row">
+      <div>
+        <h1>Reseñas pendientes</h1>
+        <p class="sub" style="margin-bottom:0;">Revisa y aprueba o rechaza cada reseña.</p>
+      </div>
+      <button class="btn-logout" id="logoutBtn">Cerrar sesión</button>
+    </div>
+    <div id="pendingList"></div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // Sustituye estos dos valores por los tuyos: Project Settings -> API en Supabase
+  const SUPABASE_URL = 'TU_PROJECT_URL_AQUI';
+  const SUPABASE_ANON_KEY = 'TU_ANON_KEY_AQUI';
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const loginBox = document.getElementById('loginBox');
+  const adminPanel = document.getElementById('adminPanel');
+  const loginError = document.getElementById('loginError');
+  const pendingList = document.getElementById('pendingList');
+
+  function starsHTML(n){
+    return '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
+  }
+  function escapeHTML(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  async function checkSession(){
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) {
+      loginBox.style.display = 'none';
+      adminPanel.style.display = 'block';
+      loadPending();
+    } else {
+      loginBox.style.display = 'block';
+      adminPanel.style.display = 'none';
+    }
+  }
+
+  document.getElementById('loginBtn').addEventListener('click', async () => {
+    loginError.classList.remove('show');
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) {
+      loginError.textContent = 'Email o contraseña incorrectos.';
+      loginError.classList.add('show');
+      return;
+    }
+    checkSession();
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await sb.auth.signOut();
+    checkSession();
+  });
+
+  async function loadPending(){
+    const { data, error } = await sb
+      .from('reviews')
+      .select('id, nombre, texto, valoracion, created_at')
+      .eq('estado', 'pendiente')
+      .order('created_at', { ascending: true });
+
+    if (error) {
+      pendingList.innerHTML = '<p class="empty">Error al cargar las reseñas.</p>';
+      return;
+    }
+    if (!data || data.length === 0) {
+      pendingList.innerHTML = '<p class="empty">No hay reseñas pendientes.</p>';
+      return;
+    }
+
+    pendingList.innerHTML = data.map(r => `
+      <div class="review-item" data-id="${r.id}">
+        <div class="stars">${starsHTML(r.valoracion)}</div>
+        <p class="texto">${escapeHTML(r.texto)}</p>
+        <p class="meta">${escapeHTML(r.nombre)} · ${new Date(r.created_at).toLocaleDateString('es-ES')}</p>
+        <div class="actions">
+          <button class="btn-approve" onclick="moderar('${r.id}', 'aprobada')">Aprobar</button>
+          <button class="btn-reject" onclick="moderar('${r.id}', 'rechazada')">Rechazar</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.moderar = async function(id, estado){
+    await sb.from('reviews').update({ estado }).eq('id', id);
+    loadPending();
+  };
+
+  checkSession();
+</script>
+</body>
+</html>
