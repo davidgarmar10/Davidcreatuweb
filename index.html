@@ -718,7 +718,7 @@
   .price-card h3{ font-size:19px; margin-bottom:6px; }
   .price-card .amount{ font-family:var(--display); font-size:40px; font-weight:700; margin:10px 0 6px; }
   .price-card .amount span{ font-size:15px; color:var(--text-faint); font-weight:500; }
-  .price-card .amount-old{ text-decoration:line-through; opacity:0.55; margin-right:8px; }
+  .price-card .amount-old{ text-decoration:line-through; opacity:0.55; margin-right:8px; font-size:22px; font-weight:500; vertical-align:middle; }
   .price-card .tagline{ color:var(--text-dim); font-size:14px; margin-bottom:24px; min-height:42px; }
   .price-list{ display:flex; flex-direction:column; gap:11px; margin-bottom:28px; flex:1; }
   .price-list li{ display:flex; gap:10px; font-size:14px; color:var(--text-dim); align-items:flex-start; }
@@ -1325,7 +1325,7 @@
 
       <div class="price-card">
         <h3>Web Esencial</h3>
-        <div class="amount">232 €</div>
+        <div class="amount"><span class="amount-old">290 €</span>232 €</div>
         <p class="tagline">Una web profesional con todo lo necesario para empezar.</p>
         <ul class="price-list">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Diseño personalizado</li>
@@ -1346,7 +1346,7 @@
       <div class="price-card featured">
         <span class="badge">Más elegido</span>
         <h3>Web Profesional</h3>
-        <div class="amount">360 €</div>
+        <div class="amount"><span class="amount-old">450 €</span>360 €</div>
         <p class="tagline">Para negocios que quieren una presencia online más completa.</p>
         <ul class="price-list">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Todo lo del plan Esencial</li>
@@ -1363,7 +1363,7 @@
 
       <div class="price-card">
         <h3>Web Premium</h3>
-        <div class="amount">520 €</div>
+        <div class="amount"><span class="amount-old">650 €</span>520 €</div>
         <p class="tagline">Para proyectos que necesitan una solución completamente personalizada.</p>
         <ul class="price-list">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Diseño totalmente personalizado</li>
